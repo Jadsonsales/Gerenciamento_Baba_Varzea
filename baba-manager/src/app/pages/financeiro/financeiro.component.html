@@ -1,0 +1,106 @@
+<!--Controle Financeiro-->
+<h1 class="page-title">Controle Financeiro</h1>
+<p class="page-subtitle">Mensalidades e pagamentos dos cansados</p>
+<div class="fin-stats">
+    <div class="fin-card">
+        <div class="fc-label">Mensalidade</div>
+        <div class="fc-val">R$ 50</div>
+        <div class="fc-sub">por associado</div>
+    </div>
+    <div class="fin-card green">
+        <div class="fc-label">Caixa</div>
+        <div class="fc-val">R$700</div>
+        <div class="fc-sub">mês atual</div>
+    </div>
+    <div class="fin-card">
+        <div class="fc-label">A espera de um milagre</div>
+        <div class="fc-val">R$300</div>
+        <div class="fc-sub">só observando</div>
+    </div>
+    <div class="fin-card">
+        <div class="fc-label">Em dia</div>
+        <div class="fc-val">70%</div>
+        <div class="fc-sub">dos associados</div>
+    </div>
+</div>
+
+<!--Distribuição Financeira-->
+<div class="fin-mid">
+    <div class="card dist-card">
+        <div class="card-header"><span>Arrecadação</span></div>
+        <div class="donut-wrap">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#333" stroke-width="18" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#0B8F3A" stroke-width="18" stroke-dasharray="180 121"
+                    stroke-dashoffset="0" transform="rotate(-90 60 60)" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#F4B400" stroke-width="18" stroke-dasharray="25 276"
+                    stroke-dashoffset="-180" transform="rotate(-90 60 60)" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#e53935" stroke-width="18" stroke-dasharray="50 251"
+                    stroke-dashoffset="-205" transform="rotate(-90 60 60)" />
+            </svg>
+        </div>
+        <div class="legend-list">
+            <div><span class="ldot green"></span> Com moral <strong>14</strong></div>
+            <div><span class="ldot yellow"></span> Sem moral <strong>2</strong></div>
+            <div><span class="ldot red"></span> Fax o Pix, CBF <strong>4</strong></div>
+        </div>
+        <!--Historico financeiro-->
+    </div>
+    <div class="card hist-card">
+        <div class="card-header"><span>📈 Histórico de Arrecadação</span></div>
+        <div class="hist-chart">
+            <div class="hist-bars">
+                <div class="hb-group" *ngFor="let m of historico">
+                    <div class="hb" [style.height]="m.v*9+'px'"></div>
+                    <span class="hb-label">{{m.l}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top:20px">
+    <div class="card-header"><span>Lista de Associados</span><button class="filter-btn">⚙ Filtrar</button></div>
+    <div class="table-scroll">
+        <table class="fin-table">
+            <thead>
+                <tr>
+                    <th>Jogador</th>
+                    <th>Posição</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of pagamentos">
+                    <td>
+                        <div class="jog-cell">
+                            <div class="jav" [style.background]="p.cor">{{p.init}}</div>
+                            <div>
+                                <div class="jname">{{p.apelido}}</div>
+                                <div class="jfull">{{p.nome}}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="pos-tag">{{p.posicao}}</span></td>
+                    <td>R$ 50,00</td>
+                    <td>28/07/2026</td>
+                    <td><span class="badge" [class.badge-green]="p.status==='Pago'"
+                            [class.badge-yellow]="p.status==='Pendente'"
+                            [class.badge-red]="p.status==='Atrasado'">{{p.status}}</span></td>
+                    <td class="acoes-cell">
+                        <span *ngIf="p.status!=='Pago'" class="marcar-btn" (click)="marcarPago(p)"
+                            title="Marcar como pago">
+                            <i class="bi bi-check2-circle"></i> Marcar pago
+                        </span>
+                        <button class="eye-btn" type="button" title="Ver detalhes">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

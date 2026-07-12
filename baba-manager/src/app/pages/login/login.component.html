@@ -1,0 +1,98 @@
+<!-- login.component.html -->
+<div class="login-page">
+  <div class="login-left">
+    <svg class="pitch-lines" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <line x1="250" y1="0" x2="250" y2="500" stroke="#ffffff" stroke-opacity="0.06" stroke-width="2"/>
+      <circle cx="250" cy="250" r="95" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+      <circle cx="250" cy="250" r="3" fill="#ffffff" fill-opacity="0.15"/>
+      <circle cx="80" cy="90" r="130" fill="none" stroke="#14C158" stroke-opacity="0.15" stroke-width="1.5" stroke-dasharray="4 6"/>
+    </svg>
+    
+    <div class="brand">
+      <div class="logo-icon"><i class="bi bi-trophy-fill"></i></div>
+      <span>BABA DE VÁRZEA</span>
+    </div>
+
+    <div class="hero-text">
+      <h1>GERENCIE<br>SEU BABA</h1>
+      <h1 class="yellow">DAQUELE<br>JEITÃO</h1>
+      <p class="desc">A plataforma completa para organizar babas, controlar mensalidades e sortear times de forma inteligente e sem Mi Mi Mi de chorão.</p>
+    </div>
+
+    <div class="stats">
+      <div><span class="stat-num">500+</span><span class="stat-label">Babas cadastrados</span></div>
+      <div><span class="stat-num">8.000+</span><span class="stat-label">Cansados ativos</span></div>
+      <div><span class="stat-num">12k+</span><span class="stat-label">Babas sorteadas</span></div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="form-card">
+      <h2>Bem-vindo de volta</h2>
+      <p>Acesse sua conta para continuar</p>
+
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" [(ngModel)]="email" placeholder="admin@babamanager.com">
+      </div>
+
+      <div class="field">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" [(ngModel)]="senha" placeholder="••••••••">
+      </div>
+
+      <div class="row-opts">
+        <label><input type="checkbox"> Lembrar de mim</label>
+        <a href="#">Esqueci a senha</a>
+      </div>
+
+<div class="terms-row">
+  <input type="checkbox" id="aceitouTermos" [(ngModel)]="aceitouTermos" name="aceitouTermos">
+  <div class="terms-text-wrapper">
+    <label for="aceitouTermos">Li e aceito os Termos de Uso e a Política de Privacidade</label>
+    <a href="" class="terms-link" (click)="abrirTermos($event)">(ver LGPD)</a>
+  </div>
+</div>
+
+<button class="btn-enter" (click)="entrar()" [disabled]="!aceitouTermos">Entrar</button>
+<p class="signup">Não tem conta? <a href="#">Solicitar acesso</a></p>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" [class.open]="mostrarTermos" *ngIf="mostrarTermos" (click)="fecharTermos()">
+  <div class="modal terms-modal" (click)="$event.stopPropagation()">
+    <div class="terms-header">
+      <h3>Termos de Uso e Política de Privacidade</h3>
+      <button class="terms-close" type="button" (click)="fecharTermos()" aria-label="Fechar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="terms-body">
+      <p>
+        Em conformidade com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018 – LGPD)</strong>,
+        o Baba de Várzea coleta apenas os dados necessários para o funcionamento da plataforma
+        (nome, e-mail, telefone e informações de jogo dos jogadores cadastrados), utilizados
+        exclusivamente para gestão de babas, controle de mensalidades e sorteio de times.
+      </p>
+      <p>Como titular dos dados, você tem direito a, a qualquer momento e mediante requisição:</p>
+      <ul>
+        <li>Confirmação da existência de tratamento e acesso aos seus dados (Art. 18, I e II);</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados (Art. 18, III);</li>
+        <li>Anonimização, bloqueio ou eliminação de dados desnecessários (Art. 18, IV);</li>
+        <li>Portabilidade dos dados a outro fornecedor (Art. 18, V);</li>
+        <li>Eliminação dos dados tratados com consentimento (Art. 18, VI);</li>
+        <li>Revogação do consentimento a qualquer momento (Art. 8º, §5º).</li>
+      </ul>
+      <p>
+        Não compartilhamos seus dados com terceiros para fins comerciais. Para exercer seus
+        direitos ou tirar dúvidas, entre em contato com o administrador do seu baba.
+      </p>
+      <p>
+        Este resumo não substitui a lei. Leia o texto oficial completo da LGPD no site do
+        Planalto (abre em nova aba): <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">planalto.gov.br/lei/l13709.htm</a>.
+      </p>
+    </div>
+    <button class="btn-enter" (click)="fecharTermos()">Fechar</button>
+  </div>
+</div>

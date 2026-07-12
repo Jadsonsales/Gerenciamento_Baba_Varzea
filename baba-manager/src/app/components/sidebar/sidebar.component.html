@@ -1,0 +1,40 @@
+<aside class="sidebar" [class.open]="sidebarService.isOpen$ | async">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="bi bi-trophy-fill" style="color: #fff;"></i></div>
+    <div>
+      <div class="brand-name">BABA DE VÁRZEA</div>
+      <div class="brand-sub">GESTÃO DO BABA</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- Usando o .close() do serviço global ao clicar em qualquer item -->
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-grid-1x2"></i> Dashboard
+    </a>
+    <a routerLink="/jogadores" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-people"></i> Cansados
+    </a>
+    <a routerLink="/financeiro" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-currency-dollar"></i> Mensalidade
+    </a>
+    <a routerLink="/sorteio" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-lightning-charge"></i> Sorteio dos Cansados
+    </a>
+    <a routerLink="/meu-time" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-shield"></i> Seu Baba
+    </a>
+    <a routerLink="/notificacoes" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-bell"></i> Avisos <em class="badge2">2</em>
+    </a>
+    <a routerLink="/configuracoes" routerLinkActive="active" class="nav-item" (click)="sidebarService.close()">
+      <i class="bi bi-gear"></i> Configurações
+    </a>
+  </nav>
+
+  <div class="sidebar-user">
+    <div class="avatar">JS</div>
+    <div><div class="uname">Jadson Sales</div><div class="urole">Administrador</div></div>
+    <a href="javascript:void(0)" class="logout" (click)="logout()"><i class="bi bi-box-arrow-right"></i></a>
+  </div>
+</aside>

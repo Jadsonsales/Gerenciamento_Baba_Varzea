@@ -1,0 +1,58 @@
+<div class="notif-header-row">
+  <div>
+    <h1 class="page-title">Avisos</h1>
+    <p class="page-subtitle">{{naoLidas}} não lidas</p>
+  </div>
+  <button class="mark-all" (click)="marcarTodas()">
+    <i class="bi bi-check2-all me-1"></i> Marcar todas como lidas
+  </button>
+</div>
+
+<div class="notif-layout">
+  <div class="card notif-list">
+    <div class="notif-item" *ngFor="let n of notificacoes" [class.unread]="!n.lida" (click)="n.lida=true">
+      
+      <!-- Ícones modernizados com Bootstrap Icons baseados no tipo -->
+      <div class="notif-icon" [class.money]="n.tipo==='money'" [class.cal]="n.tipo==='cal'" [class.sort]="n.tipo==='sort'" [class.bell]="n.tipo==='bell'" [ngSwitch]="n.tipo">
+        <i *ngSwitchCase="'money'" class="bi bi-currency-dollar"></i>
+        <i *ngSwitchCase="'cal'" class="bi bi-calendar3"></i>
+        <i *ngSwitchCase="'sort'" class="bi bi-lightning-charge-fill"></i>
+        <i *ngSwitchDefault class="bi bi-bell-fill"></i>
+      </div>
+
+      <div class="notif-body">
+        <div class="notif-text">{{n.texto}}</div>
+        <div class="notif-time">{{n.tempo}}</div>
+      </div>
+      <div class="unread-dot" *ngIf="!n.lida"></div>
+    </div>
+  </div>
+
+  <div class="card enviar-card">
+    <h3><i class="bi bi-send me-1 text-success"></i> Enviar Avisos</h3>
+    <div class="field"><label>Tipo</label>
+      <select [(ngModel)]="nova.tipo" class="inp">
+        <option value="">Selecionar tipo</option>
+        <option>Aviso de mensalidade</option>
+        <option>Confirmação de presença</option>
+        <option>Sorteio do baba</option>
+        <option>Comunicado geral</option>
+      </select>
+    </div>
+    <div class="field"><label>Destinatários</label>
+      <select [(ngModel)]="nova.dest" class="inp">
+        <option value="">Selecionar</option>
+        <option>Todos os associados</option>
+        <option>Associados ativos</option>
+        <option>Associados inadimplentes</option>
+      </select>
+    </div>
+    <div class="field"><label>Mensagem</label>
+      <textarea [(ngModel)]="nova.msg" class="inp" rows="5" placeholder="Digite sua mensagem..."></textarea>
+    </div>
+    <button class="btn-green" style="width:50%"  (click)="enviar()">
+      <i class="bi bi-send-fill me-1"></i> Enviar
+    </button>
+    <div class="sent-msg" *ngIf="enviado">✅ Aviso enviado!</div>
+  </div>
+</div>

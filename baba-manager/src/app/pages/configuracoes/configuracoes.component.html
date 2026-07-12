@@ -1,0 +1,48 @@
+
+    <h1 class="page-title">Configurações</h1>
+    <p class="page-subtitle">Conta, preferências e configurações do sistema</p>
+    <div class="cfg-layout">
+      <div class="left-col">
+        <div class="card" style="margin-bottom:16px">
+          <h3 class="sec-title">Conta do Administrador</h3>
+          <div class="field"><label>Nome Completo</label><input [(ngModel)]="conta.nome" placeholder="Nome completo" class="inp"></div>
+          <div class="field"><label>E-mail</label><input [(ngModel)]="conta.email" placeholder="E-mail" class="inp" type="email"></div>
+          <div class="field"><label>Telefone</label><input [(ngModel)]="conta.tel" placeholder="Telefone" class="inp"></div>
+          <button class="btn-green" (click)="salvar()">Salvar Alterações</button>
+          <div class="saved-msg" *ngIf="saved">✅ Salvo!</div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <h3 class="sec-title">Configurações do Baba</h3>
+          <div class="field"><label>Valor da Mensalidade (R$)</label><input [(ngModel)]="baba.mensalidade" placeholder="Valor da mensalidade" class="inp" type="number"></div>
+          <div class="field"><label>Dia de Vencimento</label><input [(ngModel)]="baba.vencimento" placeholder="Dia de vencimento" class="inp" type="number"></div>
+          <div class="field"><label>Dias de Tolerância</label><input [(ngModel)]="baba.tolerancia" placeholder="Dias de tolerância" class="inp" type="number"></div>
+        </div>
+        <div class="card">
+          <h3 class="sec-title">Notificações Automáticas</h3>
+          <div class="toggle-item" *ngFor="let t of toggles">
+            <div><div class="tname">{{t.nome}}</div><div class="tsub">{{t.sub}}</div></div>
+            <div class="toggle" [class.on]="t.ativo" (click)="t.ativo=!t.ativo"><div class="thumb"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="card plan-card" style="margin-bottom:16px">
+          <div class="plan-label">PLANO PRO</div>
+          <div class="plan-price">R$ 29,90<span>/mês</span></div>
+          <div class="plan-renov">Renovação em 28/07/2027</div>
+          <div class="plan-features">
+            <div *ngFor="let f of features"><span class="check-green">✓</span> {{f}}</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <h3 class="sec-title">Segurança</h3>
+          <button class="sec-btn">Alterar senha</button>
+          <button class="sec-btn">Autenticação em dois fatores</button>
+        </div>
+        <div class="card danger-card">
+          <div class="danger-title">⚠ Cuidado</div>
+          <div class="danger-sub">Ações irreversíveis que afetam todos os dados.</div>
+          <button class="danger-btn">Excluir conta permanentemente</button>
+        </div>
+      </div>
+    </div>

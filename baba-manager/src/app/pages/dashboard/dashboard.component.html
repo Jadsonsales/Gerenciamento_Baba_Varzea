@@ -1,0 +1,261 @@
+<h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle">Resumo do seu baba</p>
+
+    <!--TOTAL DE JOGADORES-->
+    <div class="stats-grid">
+      <div class="stat-card green">
+        <div class="sc-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/>
+            <circle cx="17" cy="8.5" r="2.4"/><path d="M15.5 14.3c2.4.3 4 2.2 4 5"/>
+          </svg>
+        </div>
+        <div class="sc-num">{{ totalJogadores }}</div>
+        <div class="sc-label">Total de cansados</div>
+        <div class="sc-sub">associados</div>
+      </div>
+
+      <!--APTO PARA BRINCAR-->
+      <div class="stat-card">
+        <div class="sc-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 12.5l5 5L20 7"/>
+          </svg>
+        </div>
+        <div class="sc-num">{{ aptos }}</div>
+        <div class="sc-label">Apto para brincar</div>
+        <div class="sc-sub">pedra beba liberada</div>
+      </div>
+
+      <!--MENSALIDADES EM DIA-->
+      <div class="stat-card">
+        <div class="sc-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/><path d="M9 12.5l2 2 4-4.5"/>
+          </svg>
+        </div>
+        <div class="sc-num">{{ mensalidadesPagas }}</div>
+        <div class="sc-label">Mensalidades em dia</div>
+        <div class="sc-sub">milagres acontecem</div>
+      </div>
+
+      <!--MENSALIDADES ATRASADAS-->
+      <div class="stat-card">
+        <div class="sc-icon-wrap sc-icon-danger">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="sc-num">{{ mensalidadesAtrasadas }}</div>
+        <div class="sc-label">Mensalidades atrasadas</div>
+        <div class="sc-sub">duro dorme e fica em casa</div>
+      </div>
+    </div>
+
+    <!--PRÓXIMO JOGO-->
+    <div class="mid-grid">
+      <div class="card next-game">
+        <div class="ng-top">
+          <div class="ng-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v3M16 3v3"/>
+            </svg>
+            Próximo Baba
+          </div>
+          <div class="ng-date">{{ proximoJogo.data }}</div>
+          <div class="ng-time">{{ proximoJogo.hora }}</div>
+          <div class="ng-loc">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/>
+            </svg>
+            {{ proximoJogo.local }}
+          </div>
+        </div>
+
+        <div class="ticket-divider"></div>
+
+        <div class="ng-bottom">
+          <div class="ng-confirms">
+            <span class="confirm-badge green">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M4 12.5l5 5L20 7"/>
+              </svg>
+              {{ confirmados }} confirmados
+            </span>
+            <span class="confirm-badge yellow">{{ pendentes }} pendentes</span>
+          </div>
+
+          <div class="rsvp-row">
+            <button
+              class="rsvp-btn"
+              [class.confirmed]="meuStatus === 'yes'"
+              (click)="toggleRsvp(true)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 12.5l5 5L20 7"/>
+              </svg>
+              Eu vou
+            </button>
+            <button
+              class="rsvp-btn"
+              [class.confirmed]="meuStatus === 'no'"
+              (click)="toggleRsvp(false)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 6l12 12M18 6L6 18"/>
+              </svg>
+              Não vou
+            </button>
+          </div>
+
+          <a routerLink="/sorteio" class="btn-green">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 3L4 14h6l-1 7 9-11h-6z" />
+            </svg>
+            Sortear babas
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+            </svg>
+            Mensalidades 2026
+          </span>
+          <span class="legend">
+            <span class="dot green"></span>Com moral
+            <span class="dot red"></span>Sem moral
+            <span class="dot yellow"></span>Faz o Pix, CBF
+          </span>
+        </div>
+        <div class="chart-bars">
+          <div class="bar-group" *ngFor="let m of meses">
+            <div class="chart-tooltip">
+              <div><span class="t-green">Com moral</span><span>{{ m.pago }}</span></div>
+              <div><span class="t-red">Sem moral</span><span>{{ m.atrasado }}</span></div>
+            <div><span class="t-yellow">Faz o Pix, CBF</span><span>{{ m.pendente }}</span></div>
+            </div>
+            <div class="bars">
+              <div class="bar green" [style.height]="barHeight(m.pago)"></div>
+              <div class="bar red" [style.height]="barHeight(m.atrasado)"></div>
+              <div class="bar yellow" [style.height]="barHeight(m.pendente)"></div>
+            </div>
+            <div class="bar-label">{{ m.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bot-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="icon-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M8 21h8M12 17v4M6 4h12v3a6 6 0 01-12 0V4z"/>
+              <path d="M6 5H3.5A2.5 2.5 0 006 9.5M18 5h2.5A2.5 2.5 0 0118 9.5"/>
+            </svg>
+            Últimos babas
+          </span>
+
+          <!--Botão sortear-->
+          <a routerLink="/jogadores" class="link-green">
+            Ver todos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+
+        <table class="game-table">
+          <tr *ngFor="let j of jogos">
+            <td class="date">{{ j.data }}</td>
+            <td>{{ j.t1 }}</td>
+            <td class="score">{{ j.p1 }} <span class="x">x</span> {{ j.p2 }}</td>
+            <td>{{ j.t2 }}</td>
+            <td class="gjogos">{{ j.jog }}jog</td>
+          </tr>
+        </table>
+      </div>
+
+      <!--EM ATRASO-->
+      <div class="card">
+        <div class="card-header">
+          <span class="icon-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+            </svg>
+            No Serasa
+          </span>
+          <a routerLink="/financeiro" class="link-green">
+            Gerenciar
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>
+          </svg>
+          <input
+            class="search-input"
+            placeholder="Buscar jogador..."
+            [(ngModel)]="buscaAtrasados"
+          />
+        </div>
+
+        <div class="atrasados">
+          <div class="at-item" *ngFor="let a of atrasadosFiltrados">
+            <div class="at-av" [style.background]="a.cor">{{ a.init }}</div>
+            <div>
+              <div class="at-name">{{ a.nome }}</div>
+              <div class="at-pos">{{ a.pos }}</div>
+            </div>
+            <span class="badge-red" (click)="cobrar(a)">Cobrar</span>
+          </div>
+          <div class="empty-hint" *ngIf="atrasadosFiltrados.length === 0">
+            Nenhum jogador encontrado.
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="modal-overlay" [class.open]="sorteioAberto">
+  <div class="modal" *ngIf="sorteioAberto">
+    <h3>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M13 3L4 14h6l-1 7 9-11h-6z"/>
+      </svg>
+      Sortear times
+    </h3>
+
+    <p *ngIf="timeVerde.length === 0">
+      {{ confirmados }} jogadores confirmados serão divididos em 2 times equilibrados.
+    </p>
+
+    <div class="teams-result" *ngIf="timeVerde.length > 0">
+      <div class="team-box">
+        <h4>Time Verde</h4>
+        <ul>
+          <li *ngFor="let n of timeVerde">{{ n }}</li>
+        </ul>
+      </div>
+      <div class="team-box">
+        <h4>Time Amarelo</h4>
+        <ul>
+          <li *ngFor="let n of timeAmarelo">{{ n }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" (click)="fecharSorteio()">Cancelar</button>
+      <button class="btn-green" style="flex:1" (click)="sortearTimes()" [disabled]="sorteando">
+        <span class="spinner" *ngIf="sorteando"></span>
+        <span>{{ sorteando ? 'Sorteando...' : (timeVerde.length > 0 ? 'Sortear de novo' : 'Sortear') }}</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #111;
+    border-right: 1px solid #222;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 16px;
+    border-bottom: 1px solid #222;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    background: #0B8F3A;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.brand-name {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.brand-sub {
+    font-size: 9px;
+    color: var(--text-secondary, #999999);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Configuração minimalista dos ícones */
+.nav-item i { 
+    font-size: 16px; 
+    width: 20px; 
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: #888;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all .2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #fff;
+}
+
+.nav-item.active {
+    background: #0B8F3A; 
+}
+
+.badge2 {
+    margin-left: auto;
+    background: #F4B400;
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    border-top: 1px solid #222;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background: #0B8F3A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.uname {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.urole {
+    font-size: 10px;
+    color: #666;
+}
+
+.logout {
+    margin-left: auto;
+    color: #666;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.logout:hover {
+    color: #fff;
+}
+
+@media (max-width: 1023px) {
+    .sidebar {
+        width: 280px;
+        left: -280px;
+        transition: left 300ms ease-in-out;
+        z-index: 200; /* above the overlay (150) and content */
+        overflow-y: auto;
+    }
+
+    .sidebar.open {
+        left: 0;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, .4);
+    }
+}

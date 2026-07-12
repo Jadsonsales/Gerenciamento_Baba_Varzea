@@ -1,0 +1,80 @@
+<div class="jog-header-row">
+    <div>
+        <h1 class="page-title">Jogadores</h1>
+        <p class="page-subtitle">20 cadastrados · 13 aptos</p>
+    </div>
+    <button class="btn-green" (click)="showModal=true">+ Novo Jogador</button>
+</div>
+        <div class="jog-filters-row">
+            <input class="search-input" [(ngModel)]="busca" placeholder="Buscar jogador..." style="flex:1">
+            <select class="filter-sel" [(ngModel)]="filtroPosicao">
+                <option value="">Todas posições</option>
+                <option *ngFor="let p of posicoes" [value]="p">{{p}}</option>
+            </select>
+            <select class="filter-sel" [(ngModel)]="filtroStatus">
+                <option value="">Todos status</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+                <option value="Suspenso">Suspenso</option>
+            </select>
+        </div>
+        <div class="players-grid">
+            <div class="player-card" *ngFor="let j of filteredJogadores()">
+                <div class="pc-header">
+                    <div class="pc-avatar" [style.background]="j.cor">{{j.init}}</div>
+                    <div class="pc-info">
+                        <div class="pc-name">{{j.apelido}}</div>
+                        <div class="pc-fullname">{{j.nome}}</div>
+                    </div>
+                    <div class="pc-num">#{{j.num}}</div>
+                </div>
+                <div class="pc-tags">
+                    <span class="tag pos">{{j.posicao}}</span>
+                    <span class="tag" [class.tag-green]="j.status==='Ativo'" [class.tag-gray]="j.status==='Inativo'"
+                        [class.tag-yellow]="j.status==='Suspenso'">{{j.status}}</span>
+                </div>
+                <div class="pc-payment">
+                    <span class="badge" [class.badge-green]="j.pagamento==='Pago'"
+                        [class.badge-yellow]="j.pagamento==='Pendente'"
+                        [class.badge-red]="j.pagamento==='Atrasado'">{{j.pagamento}}</span>
+                    <span class="apto-badge" [class.apto]="j.apto" [class.inapto]="!j.apto">{{j.apto ? '✓ Apto' : '○
+                        Inapto'}}</span>
+                </div>
+                <div class="pc-stats">
+                    <div><span class="sn">{{j.jogos}}</span><span class="sl">jogos</span></div>
+                    <div><span class="sn green">{{j.gols}}</span><span class="sl">gols</span></div>
+                    <div><span class="sn">{{j.assist}}</span><span class="sl">assist.</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" *ngIf="showModal" (click)="showModal=false">
+            <div class="modal" (click)="$event.stopPropagation()">
+                <h3>Novo Jogador</h3>
+                <div class="form-row">
+                    <div class="field"><label>Apelido</label><input [(ngModel)]="novo.apelido" placeholder="Carlão">
+                    </div>
+                    <div class="field"><label>Número</label><input [(ngModel)]="novo.num" placeholder="21"></div>
+                </div>
+                <div class="field"><label>Nome Completo</label><input [(ngModel)]="novo.nome"
+                        placeholder="Carlos Eduardo Santos"></div>
+                <div class="form-row">
+                    <div class="field"><label>Posição</label>
+                        <select [(ngModel)]="novo.posicao">
+                            <option *ngFor="let p of posicoes" [value]="p">{{p}}</option>
+                        </select>
+                    </div>
+                    <div class="field"><label>Status</label>
+                        <select [(ngModel)]="novo.status">
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                            <option>Suspenso</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px">
+                    <button class="btn-cancel" (click)="showModal=false">Cancelar</button>
+                    <button class="btn-green" (click)="addJogador()">Salvar</button>
+                </div>
+            </div>
+        </div>

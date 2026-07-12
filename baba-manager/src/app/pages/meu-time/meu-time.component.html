@@ -1,0 +1,81 @@
+<h1 class="page-title">Sobre o seu Baba</h1>
+<p class="page-subtitle">Informações do seu baba</p>
+<div class="mt-grid">
+    <div class="left-col">
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Informações do Baba</h3>
+            <div class="field"><label>Nome do Baba</label><input [(ngModel)]="time.nome" class="inp" placeholder="Baba das antigas"></div>
+            <div class="field"><label>História do Baba</label><textarea [(ngModel)]="time.historia" class="inp"
+                    rows="4" placeholder="Conte a história do seu baba..."></textarea></div>
+        </div>
+
+        <!--Componente de local e horários-->
+        <div class="card">
+            <h3 class="sec-title">Local e Horários</h3>
+            <div class="form-row">
+                <div class="field"><label>Nome do Mata Fome</label><input [(ngModel)]="time.campo" class="inp" placeholder="Campo das Barreiras">
+                </div>
+                <div class="field"><label>Local</label><input [(ngModel)]="time.endereco" class="inp" placeholder="Endereço completo"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Dia da Semana</label><input [(ngModel)]="time.dia" class="inp" placeholder="Ex: Segunda-feira"></div>
+                <div class="field"><label>Horário</label><input [(ngModel)]="time.horario" class="inp" placeholder="Ex: 18:00"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Duração</label><input [(ngModel)]="time.duracao" class="inp" placeholder="Ex: 2 horas"></div>
+                <div class="field"><label>Quantos de linha?</label><input [(ngModel)]="time.formato" class="inp" placeholder="Ex: Campo de 11"></div>
+            </div>
+            <button class="btn-green" style="margin-top:8px" (click)="salvar()">Salvar Alterações</button>
+        </div>
+    </div>
+
+    <!-- Coluna da direita com informações adicionais do time, como logo, cores e resumo -->
+    <div class="right-col">
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Logo do Time</h3>
+            <div class="logo-upload">
+                <!-- Ícone modernizado usando Bootstrap Icons -->
+                <div class="logo-preview"><i class="bi bi-shield-arrow"></i></div>
+                <div class="logo-text">Enviar logo do time</div>
+                <div class="logo-sub">PNG, JPG até 2MB</div>
+            </div>
+        </div>
+
+        <!-- Componente de cores do time -->
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Cores do Baba</h3>
+            <div class="cor-item">
+                <div class="cor-circle" style="background:#0B8F3A"></div>
+                <div>
+                    <div class="cor-label">Baba 1</div>
+                    <div class="cor-hex">#0B8F3A</div>
+                </div>
+                <!-- Ícone modernizado usando Bootstrap Icons -->
+                <span class="edit-icon"><i class="bi bi-pencil-square"></i></span>
+            </div>
+
+            <div class="cor-item">
+                <div class="cor-circle" style="background:#F4B400"></div>
+                <div>
+                    <div class="cor-label">Baba 2</div>
+                    <div class="cor-hex">#F4B400</div>
+                </div>
+                <!-- Ícone modernizado usando Bootstrap Icons -->
+                <span class="edit-icon"><i class="bi bi-pencil-square"></i></span>
+            </div>
+        </div>
+
+        <!-- Componente de resumo do time -->
+        <div class="card">
+            <h3 class="sec-title">Sobre o Baba</h3>
+            <div class="res-row"><span>Fundado em</span><strong>2015</strong></div>
+            <div class="res-row"><span>Total de jogos</span><strong>142</strong></div>
+            <div class="res-row"><span>Jogadores ativos</span><strong>20</strong></div>
+        </div>
+    </div>
+</div>
+
+<!-- Mensagem de sucesso ao salvar alterações -->
+@if (saved) {
+<div class="saved-msg">✅ Alterações salvas</div>
+}

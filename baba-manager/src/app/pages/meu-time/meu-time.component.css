@@ -1,0 +1,176 @@
+.page-title {
+   color: #fff;
+}
+
+.mt-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+}
+
+.card {
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #272727;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.sec-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.field {
+    margin-bottom: 14px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 6px;
+}
+
+.inp {
+    width: 100%;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    outline: none;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.inp:focus {
+    border-color: #0B8F3A;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Upgrade visual na caixa de Upload estilo Dashboard Bootstrap Premium */
+.logo-upload {
+    border: 2px dashed #333;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    background: #1f1f1f;
+    transition: all 0.2s ease-in-out;
+}
+
+.logo-upload:hover {
+    border-color: #0B8F3A;
+    background: #222522;
+}
+
+.logo-preview {
+    font-size: 42px;
+    color: #0B8F3A;
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+.logo-upload:hover .logo-preview {
+    transform: scale(1.1); /* Dá um leve pulo no ícone ao passar o mouse */
+}
+
+.logo-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.logo-sub {
+    font-size: 11.5px;
+    color: #777;
+}
+
+.cor-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #252525;
+}
+
+.cor-item:last-child {
+    border-bottom: none;
+}
+
+.cor-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #252525;
+}
+
+.cor-label {
+    font-size: 11px;
+    color: #888;
+}
+
+.cor-hex {
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+/* Estilização do ícone de edição do Bootstrap */
+.edit-icon {
+    margin-left: auto;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.15s ease-in-out;
+}
+
+.edit-icon:hover {
+    color: #fff;
+    background: #252525;
+}
+
+.res-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #252525;
+    font-size: 13px;
+}
+
+.res-row:last-child {
+    border-bottom: none;
+}
+
+.res-row span {
+    color: #888;
+}
+
+.saved-msg {
+    margin-top: 16px;
+    color: #0fa844;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .mt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+

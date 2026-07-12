@@ -1,0 +1,73 @@
+<h1 class="page-title">Sorteio dos Babas</h1>
+<p class="page-subtitle">Distribuimos seus cansados de forma equilibrada e inteligente, se perder manda áudio.</p>
+
+<div class="steps" *ngIf="!resultado">
+  <div class="step" [class.active]="passo>=1">1 Modo</div>
+  <div class="step-arrow">›</div>
+  <div class="step" [class.active]="passo>=2">2 Jogadores</div>
+  <div class="step-arrow">›</div>
+  <div class="step" [class.active]="passo>=3">3 Resultado</div>
+</div>
+
+<div *ngIf="passo===1" class="modos-grid">
+  <div class="modo-card" (click)="selecionarModo('baba')">
+    <div class="modo-icon"><i class="bi bi-shuffle"></i></div>
+    <div class="modo-nome">Baba 1 × 2</div>
+    <div class="modo-desc">Dois babas sorteados automaticamente</div>
+  </div>
+  <div class="modo-card" (click)="selecionarModo('classico')">
+    <div class="modo-icon"><i class="bi bi-pencil-square"></i></div>
+    <div class="modo-nome">Clássico</div>
+    <div class="modo-desc">Personalize os nomes dos babas</div>
+  </div>
+  <div class="modo-card pro" (click)="selecionarModo('copao')">
+    <div class="modo-icon"><i class="bi bi-trophy-fill"></i></div>
+    <div class="modo-nome">Passeio</div>
+    <div class="modo-desc">4 a 8 babas para torneios</div>
+  </div>
+</div>
+
+<div *ngIf="passo===2" class="jogadores-step">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <span>Selecionar Jogadores ({{selecionados.length}} selecionados)</span>
+      <button class="btn-green" (click)="sortear()" [disabled]="selecionados.length<4">Sortear</button>
+    </div>
+    <div class="jog-grid">
+      <div class="jog-sel-card" *ngFor="let j of aptos"
+        [class.selected]="selecionados.includes(j.id)"
+        (click)="toggleJog(j.id)">
+        <div class="jav" [style.background]="j.cor">{{j.init}}</div>
+        <div class="jname">{{j.apelido}}</div>
+        <div class="jpos">{{j.posicao}}</div>
+        <div class="check" *ngIf="selecionados.includes(j.id)"><i class="bi bi-check-lg"></i></div>
+      </div>
+    </div>
+  </div>
+  <button class="btn-back" (click)="passo=1"><i class="bi bi-arrow-left"></i> Voltar</button>
+</div>
+
+<div *ngIf="resultado" class="resultado">
+  <div class="res-header">
+    <h2>Times Sorteados!</h2>
+    <button class="btn-green" (click)="novaSorteio()">Novo Sorteio</button>
+  </div>
+  <div class="times-grid">
+    <div class="time-card" *ngFor="let t of resultado; let i=index">
+      <div class="time-header" [class.t1]="i===0" [class.t2]="i===1">
+        <span class="team-dot" [class.dot-green]="i===0" [class.dot-blue]="i===1"></span>
+        <span class="time-nome">{{t.nome}}</span>
+        <span class="time-qtd">{{t.jogadores.length}} jogadores</span>
+      </div>
+      <div class="time-jogadores">
+        <div class="tj" *ngFor="let j of t.jogadores">
+          <div class="tjav" [style.background]="j.cor">{{j.init}}</div>
+          <div>
+            <div class="tjname">{{j.apelido}}</div>
+            <div class="tjpos">{{j.posicao}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

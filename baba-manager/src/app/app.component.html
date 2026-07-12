@@ -1,0 +1,30 @@
+@if (router.url === '/login') {
+  <!-- Tela de Login limpa, sem sidebar e sem botão hambúrguer -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+} @else {
+  <!-- Todas as outras páginas do sistema, com o Menu e a Sidebar -->
+  <div class="page-layout">
+
+    <!-- Botão Hambúrguer Global (some no desktop, aparece de tablet pra baixo) -->
+    <button class="global-hamburger-btn" (click)="sidebarService.toggle()" aria-label="Abrir menu">
+      <i class="bi" [ngClass]="(sidebarService.isOpen$ | async) ? 'bi-x-lg' : 'bi-list'"></i>
+    </button>
+
+    <!-- Overlay escuro, some no desktop; clicar nele fecha o menu -->
+    <div
+      class="sidebar-overlay"
+      [class.show]="sidebarService.isOpen$ | async"
+      (click)="sidebarService.close()">
+    </div>
+
+    <!-- Barra Lateral -->
+    <app-sidebar [class.open]="sidebarService.isOpen$ | async"></app-sidebar>
+
+    <!-- Onde as páginas (Dashboard, Jogadores, etc.) renderizam -->
+    <main class="main-wrapper">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+}

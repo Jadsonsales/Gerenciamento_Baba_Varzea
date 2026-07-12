@@ -1,0 +1,295 @@
+.page-title{
+    color: #fff;
+}
+
+.steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.step {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #666;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+}
+
+.step.active {
+    background: #0B8F3A;
+    color: #fff;
+    border-color: #0B8F3A;
+}
+
+.step-arrow {
+    color: #555;
+}
+
+.res-header h2 {
+    color: #fff;
+}
+
+.modos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+}
+
+.modo-card {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 32px 24px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+}
+
+.modo-card:hover {
+    border-color: #0B8F3A;
+    transform: translateY(-2px);
+}
+
+.modo-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #ffffff;
+    background: #5556561a;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.modo-nome {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.modo-desc {
+    font-size: 13px;
+    color: #888;
+}
+
+.pro-tag {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #F4B400;
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.jog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.jog-sel-card {
+    background: #252525;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s;
+    position: relative;
+}
+
+.jog-sel-card:hover {
+    border-color: #0B8F3A55;
+}
+
+.jog-sel-card.selected {
+    border-color: #0B8F3A;
+    background: #0B8F3A11;
+}
+
+.jav {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 auto 8px;
+}
+
+.jname {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.jpos {
+    font-size: 10px;
+    color: #888;
+}
+
+.check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0B8F3A;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #252525;
+    color: #aaa;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.res-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.res-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.times-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.time-card {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.time-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    flex-wrap: wrap;
+}
+
+.t1 {
+    background: linear-gradient(90deg, #0B8F3A22, transparent);
+}
+
+.t2 {
+    background: linear-gradient(90deg, #3498db22, transparent);
+}
+
+.team-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.team-dot.dot-green {
+    background: #0B8F3A;
+}
+
+.team-dot.dot-blue {
+    background: #3498db;
+}
+
+.time-nome {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.time-qtd {
+    margin-left: auto;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.time-jogadores {
+    padding: 8px 16px 16px;
+}
+
+.tj {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #252525;
+}
+
+.tj:last-child {
+    border-bottom: none;
+}
+
+.tjav {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.tjname {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tjpos {
+    font-size: 11px;
+    color: #888;
+}
+
+.jogadores-step .card {
+  background: #1e1e1e;
+  color: #f2f2f0;
+  border: 1px solid #2a2a2a;
+}

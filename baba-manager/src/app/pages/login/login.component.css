@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+.login-page {
+    display: flex;
+    min-height: 100dvh;
+    flex-wrap: wrap;
+    font-family: 'Manrope', sans-serif;
+}
+
+/* ---------- LEFT (hero) ---------- */
+.login-left {
+    flex: 1 1 560px;
+    position: relative;
+    background: radial-gradient(circle at 30% 20%, #0A3D22, #0B2818 70%);
+    padding: clamp(28px, 5vw, 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(24px, 4vw, 48px);
+    overflow: hidden;
+    min-height: 480px;
+}
+
+.pitch-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.brand {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: clamp(15px, 1.6vw, 20px);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+}
+
+.logo-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: #0B8F3A;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+}
+
+.hero-text {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.yellow {
+    color: #F4B400;
+    margin-top: 4px;
+}
+
+.desc {
+    color: #AFC7B9;
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.6;
+    margin-top: 18px;
+    max-width: 440px;
+}
+
+.stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(20px, 4vw, 40px);
+}
+
+.stat-num {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    color: #F4B400;
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #AFC7B9;
+}
+
+/* ---------- RIGHT (form) ---------- */
+.login-right {
+    flex: 1 1 360px;
+    max-width: 480px;
+    background: #101210;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(28px, 5vw, 56px);
+}
+
+.form-card {
+    width: 100%;
+    max-width: 340px;
+}
+
+.form-card h2 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+
+.form-card > p {
+    color: #AFC7B9;
+    font-size: 14px;
+    margin: 0 0 26px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #AFC7B9;
+    margin-bottom: 6px;
+}
+
+input[type=email],
+input[type=password] {
+    width: 100%;
+    background: #1b1d1a;
+    border: 1px solid #2c2f2b;
+    border-radius: 9px;
+    padding: 13px 14px;
+    color: #F4F6F2;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+}
+
+input[type=email]:focus,
+input[type=password]:focus {
+    border-color: #0B8F3A;
+    box-shadow: 0 0 0 3px rgba(11, 143, 58, 0.25);
+}
+
+.row-opts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+    font-size: 13px;
+}
+
+.row-opts label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #AFC7B9;
+    text-transform: none;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.row-opts a {
+    color: #14C158;
+    text-decoration: none;
+}
+
+.btn-enter {
+    width: 100%;
+    background: #0B8F3A;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    margin-bottom: 18px;
+}
+
+.btn-enter:hover {
+    background: #0fa844;
+}
+
+.btn-enter:focus-visible {
+    outline: 2px solid #F4B400;
+    outline-offset: 2px;
+}
+
+.signup {
+    text-align: center;
+    font-size: 13px;
+    color: #AFC7B9;
+    margin: 0;
+}
+
+.signup a {
+    color: #F4B400;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 760px) {
+    .login-left {
+        min-height: 0;
+        padding: 32px 24px;
+    }
+
+    .login-right {
+        max-width: none;
+        padding: 32px 24px 48px;
+    }
+}
+
+.modal-overlay.open {
+    display: flex !important;
+}
+.terms-row {
+    margin-bottom: 18px;
+    font-size: 13px; /* Tamanho igual ao do 'Lembrar de mim' */
+    color: #AFC7B9;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.terms-text-wrapper {
+    display: inline;
+    line-height: 1.4;
+}
+
+.terms-row label {
+    display: inline;
+    text-transform: none;
+    font-weight: 500;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.terms-row input[type="checkbox"] {
+    margin-top: 3px; /* Alinha perfeitamente com a primeira linha do bloco de texto */
+    flex-shrink: 0;
+}
+
+.terms-row .terms-link,
+.terms-row a {
+    color: #14C158;
+    text-decoration: none;
+    margin-left: 4px; /* Pequeno espaçamento para desgrudar do texto anterior */
+    display: inline-block;
+}
+
+.terms-row .terms-link:hover,
+.terms-row a:hover {
+    text-decoration: underline;
+}
+
+/* Força o modal a ficar acima do Bootstrap global se houver conflito */
+.modal-overlay.open {
+    display: flex !important;
+    z-index: 99999 !important;
+}
