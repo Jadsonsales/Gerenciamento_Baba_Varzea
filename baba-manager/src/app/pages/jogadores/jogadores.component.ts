@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,14 +14,14 @@ interface Jogador {
   imports: [FormsModule, CommonModule],
   styleUrls: ['./jogadores.component.css'],
   templateUrl: './jogadores.component.html'
-
 })
 export class JogadoresComponent {
   busca = ''; filtroPosicao = ''; filtroStatus = ''; showModal = false;
   posicoes = ['Goleiro', 'Lateral Direito', 'Lateral Esquerdo', 'Zagueiro', 'Volante', 'Meio-Campista', 'Meia Atacante', 'Atacante', 'Ponta'];
   novo = { apelido: '', nome: '', num: '', posicao: 'Atacante', status: 'Ativo' };
 
-  jogadores: Jogador[] = [
+  // 1. TRANSFORMADO EM SIGNAL
+  jogadores = signal<Jogador[]>([
     { id: 1, init: 'CE', nome: 'Carlos Eduardo Santos', apelido: 'Carlão', num: '10', posicao: 'Meio-Campista', status: 'Ativo', pagamento: 'Pago', apto: true, jogos: 24, gols: 12, assist: 8, cor: '#2ecc71' },
     { id: 2, init: 'RA', nome: 'Roberto Alves Lima', apelido: 'Beto', num: '9', posicao: 'Atacante', status: 'Ativo', pagamento: 'Pago', apto: true, jogos: 22, gols: 18, assist: 5, cor: '#e53935' },
     { id: 3, init: 'MV', nome: 'Marcos Vinicius Costa', apelido: 'Marquinho', num: '7', posicao: 'Ponta', status: 'Ativo', pagamento: 'Atrasado', apto: false, jogos: 20, gols: 7, assist: 11, cor: '#e67e22' },
@@ -42,24 +42,40 @@ export class JogadoresComponent {
     { id: 18, init: 'FA', nome: 'Fernando Azevedo Lima', apelido: 'Fernandão', num: '18', posicao: 'Zagueiro', status: 'Ativo', pagamento: 'Pago', apto: true, jogos: 23, gols: 2, assist: 1, cor: '#c0392b' },
     { id: 19, init: 'PH', nome: 'Pedro Henrique Ramos', apelido: 'Pedrinho', num: '19', posicao: 'Atacante', status: 'Ativo', pagamento: 'Atrasado', apto: false, jogos: 20, gols: 15, assist: 4, cor: '#e67e22' },
     { id: 20, init: 'ER', nome: 'Eduardo Ribeiro Costa', apelido: 'Edu', num: '20', posicao: 'Lateral Esquerdo', status: 'Ativo', pagamento: 'Pago', apto: true, jogos: 22, gols: 3, assist: 10, cor: '#8e44ad' },
-  ];
+  ]);
 
+  // 2. ATUALIZADO PARA LER O SIGNAL: Adicionado os parênteses () em this.jogadores()
   filteredJogadores() {
-    return this.jogadores.filter(j =>
+    return this.jogadores().filter(j =>
       (j.apelido.toLowerCase().includes(this.busca.toLowerCase()) || j.nome.toLowerCase().includes(this.busca.toLowerCase())) &&
       (!this.filtroPosicao || j.posicao === this.filtroPosicao) &&
       (!this.filtroStatus || j.status === this.filtroStatus)
     );
   }
 
+  // 3. ATUALIZADO PARA ENVIAR COM UPDATE
   addJogador() {
     if (!this.novo.apelido) return;
-    this.jogadores.push({
-      id: this.jogadores.length + 1, init: this.novo.apelido.substring(0, 2).toUpperCase(),
-      nome: this.novo.nome, apelido: this.novo.apelido, num: this.novo.num,
-      posicao: this.novo.posicao, status: this.novo.status, pagamento: 'Pendente',
-      apto: false, jogos: 0, gols: 0, assist: 0, cor: '#0B8F3A'
-    });
+    
+    const novoJogador: Jogador = {
+      id: this.jogadores().length + 1,
+      init: this.novo.apelido.substring(0, 2).toUpperCase(),
+      nome: this.novo.nome,
+      apelido: this.novo.apelido,
+      num: this.novo.num,
+      posicao: this.novo.posicao,
+      status: this.novo.status,
+      pagamento: 'Pendente',
+      apto: false,
+      jogos: 0,
+      gols: 0,
+      assist: 0,
+      cor: '#0B8F3A'
+    };
+
+    // O .update avisa o Angular reativo instantaneamente para atualizar a tela
+    this.jogadores.update(lista => [...lista, novoJogador]);
+    
     this.novo = { apelido: '', nome: '', num: '', posicao: 'Atacante', status: 'Ativo' };
     this.showModal = false;
   }

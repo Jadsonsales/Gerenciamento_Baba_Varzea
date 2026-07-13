@@ -59,9 +59,26 @@
     color: #fff;
 }
 
-.hero-text {
+/* Estrutura do Slider */
+.slider-container {
     position: relative;
     z-index: 1;
+    min-height: 220px;
+    /* Evita que o layout quebre ao trocar de slide */
+}
+
+.hero-text {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+    width: 100%;
+}
+
+.hero-text.active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 h1 {
@@ -85,6 +102,34 @@ h1 {
     line-height: 1.6;
     margin-top: 18px;
     max-width: 440px;
+}
+
+/* Estilo dos Pontinhos (Indicators) */
+.slider-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.slider-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.slider-dots span:hover {
+    transform: scale(1.2);
+}
+
+.slider-dots .dot-active {
+    background: #F4B400;
+    /* Cor amarela do destaque */
+    width: 24px;
+    /* Formato de "pílula" para o ativo */
+    border-radius: 5px;
 }
 
 .stats {
@@ -131,7 +176,7 @@ h1 {
     margin: 0 0 6px;
 }
 
-.form-card > p {
+.form-card>p {
     color: #AFC7B9;
     font-size: 14px;
     margin: 0 0 26px;
@@ -195,6 +240,43 @@ input[type=password]:focus {
     text-decoration: none;
 }
 
+/* Correção de Alinhamento dos Termos / LGPD */
+.terms-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+/* Força o texto dos termos a ficar inline, minúsculo e alinhado ao checkbox */
+.terms-row .terms-label {
+    display: inline !important;
+    text-transform: none !important;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #AFC7B9;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.terms-row input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.terms-row .terms-link {
+    color: #14C158 !important;
+    text-decoration: none;
+    margin-left: 4px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.terms-row .terms-link:hover {
+    text-decoration: underline;
+}
+
 .btn-enter {
     width: 100%;
     background: #0B8F3A;
@@ -231,6 +313,60 @@ input[type=password]:focus {
     font-weight: 700;
 }
 
+/* Rodapé Copyright */
+.copyright {
+    margin-top: 32px;
+    font-size: 11px;
+    color: #555c56;
+    text-align: center;
+}
+
+.contato {
+    color: #14C158;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modal-overlay.open {
+    display: flex !important;
+}
+
+.terms-modal {
+    background: #1e1e1e;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    padding: 24px;
+    color: #ffffff;
+    border: 1px solid #2a2a2a;
+}
+
+.terms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.terms-close {
+    background: transparent;
+    color: #AFC7B9;
+    font-size: 20px;
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
     .login-left {
@@ -242,53 +378,4 @@ input[type=password]:focus {
         max-width: none;
         padding: 32px 24px 48px;
     }
-}
-
-.modal-overlay.open {
-    display: flex !important;
-}
-.terms-row {
-    margin-bottom: 18px;
-    font-size: 13px; /* Tamanho igual ao do 'Lembrar de mim' */
-    color: #AFC7B9;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.terms-text-wrapper {
-    display: inline;
-    line-height: 1.4;
-}
-
-.terms-row label {
-    display: inline;
-    text-transform: none;
-    font-weight: 500;
-    margin-bottom: 0;
-    cursor: pointer;
-}
-
-.terms-row input[type="checkbox"] {
-    margin-top: 3px; /* Alinha perfeitamente com a primeira linha do bloco de texto */
-    flex-shrink: 0;
-}
-
-.terms-row .terms-link,
-.terms-row a {
-    color: #14C158;
-    text-decoration: none;
-    margin-left: 4px; /* Pequeno espaçamento para desgrudar do texto anterior */
-    display: inline-block;
-}
-
-.terms-row .terms-link:hover,
-.terms-row a:hover {
-    text-decoration: underline;
-}
-
-/* Força o modal a ficar acima do Bootstrap global se houver conflito */
-.modal-overlay.open {
-    display: flex !important;
-    z-index: 99999 !important;
 }
