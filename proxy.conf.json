@@ -1,0 +1,12 @@
+{
+  "/auth": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/configuracoes": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/usuarios": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/jogadores": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/jogos": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/pagamentos": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/notificacoes": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/sorteio": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/financeiro": { "target": "http://localhost:3333", "changeOrigin": true },
+  "/uploads": { "target": "http://localhost:3333", "changeOrigin": true }
+}

@@ -1,0 +1,302 @@
+<h1 class="page-title">Dashboard</h1>
+<p class="page-subtitle">Resumo geral do seu baba</p>
+
+<!-- AVISO DO BABA -->
+<div class="card" *ngIf="avisoAtivo()" style="border-left: 4px solid var(--green); margin-bottom: 16px; padding: 14px 18px;">
+  <strong>📢 Aviso do baba:</strong> {{ avisoTexto() }}
+</div>
+
+<!-- CARDS DE ESTATÍSTICAS -->
+<div class="stats-grid">
+  <!-- TOTAL DE JOGADORES -->
+  <div class="stat-card">
+    <div class="sc-icon-wrap sc-icon-green">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/>
+        <circle cx="17" cy="8.5" r="2.4"/><path d="M15.5 14.3c2.4.3 4 2.2 4 5"/>
+      </svg>
+    </div>
+    <div class="sc-num">{{ totalJogadores() }}</div>
+    <div class="sc-label">Total de cansados</div>
+    <div class="sc-sub">associados no clube</div>
+  </div>
+
+  <!-- APTO PARA BRINCAR -->
+  <div class="stat-card">
+    <div class="sc-icon-wrap sc-icon-green">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 12.5l5 5L20 7"/>
+      </svg>
+    </div>
+    <div class="sc-num">{{ aptos() }}</div>
+    <div class="sc-label">Aptos para jogar</div>
+    <div class="sc-sub">liberados para a resenha</div>
+  </div>
+
+  <!-- MENSALIDADES EM DIA -->
+  <div class="stat-card">
+    <div class="sc-icon-wrap sc-icon-amber">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9"/><path d="M9 12.5l2 2 4-4.5"/>
+      </svg>
+    </div>
+    <div class="sc-num">{{ mensalidadesPagas() }}</div>
+    <div class="sc-label">Mensalidades pagas</div>
+    <div class="sc-sub">milagres acontecem</div>
+  </div>
+
+  <!-- MENSALIDADES ATRASADAS -->
+  <div class="stat-card">
+    <div class="sc-icon-wrap sc-icon-danger">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="sc-num">{{ mensalidadesAtrasadas() }}</div>
+    <div class="sc-label">Em atraso (Serasa)</div>
+    <div class="sc-sub">duro dorme e fica em casa</div>
+  </div>
+</div>
+
+<!-- MINHA APTIDÃO -->
+<div class="card" *ngIf="jogadorService.meuJogador() as meu" style="margin-bottom: 16px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+  <div>
+    <strong>Sua situação: </strong>
+    <span [style.color]="meu.apto ? 'var(--green)' : 'var(--text-dim)'" style="font-weight: 700;">
+      {{ meu.apto ? '✓ Você está apto para o próximo jogo' : '○ Você está inapto no momento' }}
+    </span>
+  </div>
+  <button type="button" class="btn-green" style="width: auto; padding: 8px 16px;" (click)="toggleMinhaAptidao()">
+    {{ meu.apto ? 'Marcar como inapto' : 'Marcar como apto' }}
+  </button>
+</div>
+
+<!-- PRÓXIMO JOGO E MENSALIDADES -->
+<div class="mid-grid">
+  <div class="card next-game">
+    <div class="ng-top">
+      <div class="ng-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v3M16 3v3"/>
+        </svg>
+        Próximo Baba
+      </div>
+      <div class="ng-date">{{ proximoJogoData() }}</div>
+      <div class="ng-time">{{ proximoJogoHora() }}</div>
+      <div class="ng-loc">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/>
+        </svg>
+        {{ proximoJogoLocal() }}
+      </div>
+    </div>
+
+    <!-- ADMIN: alterar data/hora do próximo baba -->
+    <div *ngIf="isAdmin" style="margin-top:12px;">
+      <button *ngIf="!editandoProximo" type="button" class="btn-ghost" style="width:auto; padding:6px 12px;" (click)="iniciarEdicaoProximo()">
+        Alterar data/hora
+      </button>
+      <div *ngIf="editandoProximo" style="display:flex; flex-direction:column; gap:8px;">
+        <input type="date" [(ngModel)]="novaData" style="padding:8px; border-radius:8px; border:1px solid #333; background:transparent; color:inherit;">
+        <input type="time" [(ngModel)]="novaHora" style="padding:8px; border-radius:8px; border:1px solid #333; background:transparent; color:inherit;">
+        <input type="text" [(ngModel)]="novoLocal" placeholder="Local do baba" style="padding:8px; border-radius:8px; border:1px solid #333; background:transparent; color:inherit;">
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn-ghost" style="width:auto; padding:6px 12px;" (click)="cancelarEdicaoProximo()">Cancelar</button>
+          <button type="button" class="btn-green" style="width:auto; padding:6px 14px;" (click)="salvarProximo()" [disabled]="salvandoProximo">
+            {{ salvandoProximo ? 'Salvando...' : 'Salvar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-divider"></div>
+
+    <div class="ng-bottom">
+      <div class="ng-confirms">
+        <span class="confirm-badge green">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M4 12.5l5 5L20 7"/>
+          </svg>
+          {{ confirmados() }} confirmados
+        </span>
+        <span class="confirm-badge yellow">{{ pendentes() }} pendentes</span>
+      </div>
+
+      <div class="rsvp-row">
+        <button
+          class="rsvp-btn"
+          [class.confirmed-yes]="meuStatus() === 'yes'"
+          (click)="toggleRsvp(true)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M4 12.5l5 5L20 7"/>
+          </svg>
+          Eu vou
+        </button>
+        <button
+          class="rsvp-btn"
+          [class.confirmed-no]="meuStatus() === 'no'"
+          (click)="toggleRsvp(false)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+          Não vou
+        </button>
+      </div>
+
+      <a *ngIf="isAdmin" routerLink="/sorteio" class="btn-green">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 3L4 14h6l-1 7 9-11h-6z" />
+        </svg>
+        Sortear babas
+      </a>
+    </div>
+
+    <!-- ADMIN: gerenciar presença de qualquer jogador -->
+    <div *ngIf="isAdmin" style="margin-top:12px;">
+      <button type="button" class="btn-ghost" style="width:auto; padding:6px 12px;" (click)="alternarGerenciamentoPresencas()">
+        {{ gerenciandoPresencas ? 'Fechar presenças' : 'Gerenciar presenças' }}
+      </button>
+      <div *ngIf="gerenciandoPresencas" style="margin-top:8px; max-height:240px; overflow:auto;">
+        <div *ngFor="let j of jogadorService.jogadores()" style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:4px 0;">
+          <span>{{ j.apelido }}</span>
+          <span style="display:flex; gap:6px;">
+            <button type="button" class="btn-green" style="width:auto; padding:4px 10px;" (click)="definirPresenca(j, true)">
+              {{ presencasAdmin[j.id] === true ? '✓ Vai' : 'Vai' }}
+            </button>
+            <button type="button" class="btn-ghost" style="width:auto; padding:4px 10px;" (click)="definirPresenca(j, false)">
+              {{ presencasAdmin[j.id] === false ? '✕ Não vai' : 'Não vai' }}
+            </button>
+          </span>
+        </div>
+        <div *ngIf="jogadorService.jogadores().length === 0" class="empty-hint">Nenhum jogador cadastrado.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+        </svg>
+        Mensalidades 2026
+      </span>
+      <span class="legend">
+        <span class="dot green"></span>Com moral
+        <span class="dot red"></span>Sem moral
+        <span class="dot yellow"></span>Faz o Pix
+      </span>
+    </div>
+    <div class="chart-bars">
+      <div class="bar-group" *ngFor="let m of meses()">
+        <div class="chart-tooltip">
+          <div><span class="t-green">Com moral</span><span>{{ m.pago }}</span></div>
+          <div><span class="t-red">Sem moral</span><span>{{ m.atrasado }}</span></div>
+          <div><span class="t-yellow">Faz o Pix</span><span>{{ m.pendente }}</span></div>
+        </div>
+        <div class="bars">
+          <div class="bar green" [style.height]="barHeight(m.pago)"></div>
+          <div class="bar red" [style.height]="barHeight(m.atrasado)"></div>
+          <div class="bar yellow" [style.height]="barHeight(m.pendente)"></div>
+        </div>
+        <div class="bar-label">{{ m.label }}</div>
+      </div>
+      <div class="empty-hint" *ngIf="meses().length === 0" style="width:100%;">
+        Ainda não há histórico de arrecadação. Gere um snapshot no Financeiro.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTÓRICO DE JOGOS E ATRASADOS -->
+<div class="bot-grid">
+  <div class="card">
+    <div class="card-header">
+      <span class="icon-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 21h8M12 17v4M6 4h12v3a6 6 0 01-12 0V4z"/>
+          <path d="M6 5H3.5A2.5 2.5 0 006 9.5M18 5h2.5A2.5 2.5 0 0118 9.5"/>
+        </svg>
+        Últimos babas
+      </span>
+
+      <a routerLink="/sorteio" class="link-green">
+        Ver sorteio
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+
+    <table class="game-table">
+      <tr *ngFor="let j of historicoJogos()">
+        <td class="date">{{ j.data }}</td>
+        <td>{{ j.t1 }}</td>
+        <td class="score">{{ j.p1 }} <span class="x">x</span> {{ j.p2 }}</td>
+        <td>{{ j.t2 }}</td>
+        <td class="gjogos">{{ j.jog }} jog</td>
+      </tr>
+      <tr *ngIf="historicoJogos().length === 0">
+        <td colspan="5" class="empty-hint">Nenhum jogo realizado ainda.</td>
+      </tr>
+    </table>
+
+    <!-- ADMIN: registrar placar de um jogo agendado -->
+    <div *ngIf="isAdmin && jogosAgendados().length > 0" style="margin-top:14px;">
+      <div class="card-header" style="padding:0 0 8px;">
+        <span class="icon-title">Registrar resultado (marca como realizado)</span>
+      </div>
+      <div *ngFor="let j of jogosAgendados()" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:6px 0;">
+        <span style="flex:1; min-width:150px;">{{ j.data | date:'dd/MM/yyyy' }} — {{ j.timeA }} x {{ j.timeB }}</span>
+        <input type="number" min="0" style="width:56px; padding:6px; border-radius:6px;"
+          [ngModel]="placarDe(j).a" (ngModelChange)="setPlacar(j.id, 'a', $event)">
+        <span>x</span>
+        <input type="number" min="0" style="width:56px; padding:6px; border-radius:6px;"
+          [ngModel]="placarDe(j).b" (ngModelChange)="setPlacar(j.id, 'b', $event)">
+        <button type="button" class="btn-green" style="width:auto; padding:6px 12px;" (click)="registrarResultado(j)">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="icon-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+        </svg>
+        No Serasa
+      </span>
+      <a routerLink="/financeiro" class="link-green">
+        Gerenciar
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>
+      </svg>
+      <input
+        class="search-input"
+        placeholder="Buscar jogador..."
+        [(ngModel)]="buscaAtrasados"
+      />
+    </div>
+
+    <div class="atrasados">
+      <div class="at-item" *ngFor="let a of atrasadosFiltrados">
+        <div class="at-av" [style.background]="a.cor || 'var(--green)'">{{ a.init || a.nome.charAt(0) }}</div>
+        <div>
+          <div class="at-name">{{ a.nome }}</div>
+          <div class="at-pos">{{ a.posicao || 'Jogador' }}</div>
+        </div>
+        <span class="badge-red" (click)="cobrar(a)">Cobrar</span>
+      </div>
+      <div class="empty-hint" *ngIf="atrasadosFiltrados.length === 0">
+        Nenhum jogador devedor encontrado.
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="login-page" [class.light-theme]="!temaEscuro">
+  <div class="login-left">
+    <svg class="pitch-lines" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <line x1="250" y1="0" x2="250" y2="500" stroke="#ffffff" stroke-opacity="0.06" stroke-width="2" />
+      <circle cx="250" cy="250" r="95" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2" />
+      <circle cx="250" cy="250" r="3" fill="#ffffff" fill-opacity="0.15" />
+      <circle cx="80" cy="90" r="130" fill="none" stroke="#14C158" stroke-opacity="0.15" stroke-width="1.5"
+        stroke-dasharray="4 6" />
+    </svg>
+
+    <div class="brand">
+      <div class="logo-icon"><i class="bi bi-trophy-fill"></i></div>
+      <span>BABA DE VÁRZEA</span>
+    </div>
+
+    <div class="slider-container">
+      <div class="hero-text" *ngFor="let slide of slides; let i = index" [class.active]="i === slideAtivo">
+        <h1>{{ slide.titulo }}</h1>
+        <h1 class="yellow">{{ slide.destaque }}</h1>
+        <p class="desc">{{ slide.desc }}</p>
+      </div>
+      <div class="slider-dots">
+        <span *ngFor="let slide of slides; let i = index" [class.dot-active]="i === slideAtivo" (click)="mudarSlide(i)">
+        </span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><span class="stat-num">500+</span><span class="stat-label">Babas cadastrados</span></div>
+      <div><span class="stat-num">8.000+</span><span class="stat-label">Cansados ativos</span></div>
+      <div><span class="stat-num">12k+</span><span class="stat-label">Babas sorteados</span></div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="form-card">
+      <div class="theme-toggle-container">
+        <button type="button" class="btn-theme-toggle" (click)="toggleTema()" [title]="temaEscuro ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'">
+          <i class="bi" [class.bi-sun-fill]="temaEscuro" [class.bi-moon-stars-fill]="!temaEscuro"></i>
+        </button>
+      </div>
+
+      <h2>Solicitar acesso</h2>
+      <p>Preencha os dados para criar sua conta</p>
+
+      <div class="field">
+        <label for="nome">Nome completo</label>
+        <input id="nome" type="text" [(ngModel)]="nome" placeholder="Ex: Pelé da Várzea">
+      </div>
+
+      <div class="field">
+        <label for="cadEmail">E-mail</label>
+        <input id="cadEmail" type="email" [(ngModel)]="email" placeholder="seuemail@exemplo.com">
+      </div>
+
+      <div class="field">
+        <label for="cadSenha">Senha</label>
+        <div class="password-wrapper">
+          <input id="cadSenha" [type]="mostrarSenha ? 'text' : 'password'" [(ngModel)]="senha" placeholder="••••••••">
+          <button type="button" class="btn-toggle-password" (click)="toggleMostrarSenha()" tabindex="-1">
+            <i class="bi" [class.bi-eye-fill]="!mostrarSenha" [class.bi-eye-slash-fill]="mostrarSenha"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tipo de conta</label>
+        <p class="sub-label">
+          Toda conta nova nasce como Associado, por segurança. Um administrador
+          já existente pode promover sua conta depois, se necessário.
+        </p>
+      </div>
+
+      <p *ngIf="erro" style="color: #e53935; font-size: 14px; margin: 4px 0;">{{ erro }}</p>
+
+      <div class="terms-row">
+        <input type="checkbox" id="aceitouTermos" [(ngModel)]="aceitouTermos" name="aceitouTermos">
+        <label for="aceitouTermos" class="terms-label">
+          Li e aceito os Termos de Uso e a Política de Privacidade
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank"
+            rel="noopener" class="terms-link">(ver LGPD)</a>
+        </label>
+      </div>
+
+      <button class="btn-enter" (click)="cadastrar()"
+        [disabled]="!nome || !email || !senha || !aceitouTermos || carregando">
+        {{ carregando ? 'Criando conta...' : 'Criar minha conta' }}
+      </button>
+      <p class="signup">Já tem conta? <a routerLink="/login">Entrar na conta</a></p>
+
+      <div class="copyright">
+        &copy; {{ anoAtual }} Baba de Várzea. Todos os direitos reservados. <br> Desenvolvido por <a class="contato"
+          href="https://www.linkedin.com/in/jadson-sales-da-cruz-b73922186?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+          target="_blank" rel="noopener">Jadson Sales</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" [class.open]="mostrarTermos" *ngIf="mostrarTermos" (click)="fecharTermos()">
+  <div class="modal terms-modal" (click)="$event.stopPropagation()">
+    <div class="terms-header">
+      <h3>Termos de Uso e Política de Privacidade</h3>
+      <button class="terms-close" type="button" (click)="fecharTermos()" aria-label="Fechar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="terms-body">
+      <p>
+        Em conformidade com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018 – LGPD)</strong>,
+        o Baba de Várzea coleta apenas os dados necessários para o funcionamento da plataforma
+        (nome, e-mail, telefone e informações de jogo dos jogadores cadastrados).
+      </p>
+    </div>
+    <button class="btn-enter" (click)="fecharTermos()">Fechar</button>
+  </div>
+</div>

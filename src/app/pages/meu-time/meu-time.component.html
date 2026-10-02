@@ -1,0 +1,98 @@
+<h1 class="page-title">Sobre o seu Baba</h1>
+<p class="page-subtitle">Informações do seu baba</p>
+<div class="mt-grid">
+    <div class="left-col">
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Informações do Baba</h3>
+            <div class="field"><label>Nome do Baba</label><input [(ngModel)]="time.nome" class="inp" placeholder="Baba das antigas"></div>
+            <div class="field"><label>História do Baba</label><textarea [(ngModel)]="time.historia" class="inp"
+                    rows="4" placeholder="Conte a história do seu baba..."></textarea></div>
+        </div>
+
+        <!--Componente de local e horários-->
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Local e Horários</h3>
+            <div class="form-row">
+                <div class="field"><label>Nome do Mata Fome</label><input [(ngModel)]="time.campo" class="inp" placeholder="Campo das Barreiras">
+                </div>
+                <div class="field"><label>Local</label><input [(ngModel)]="time.endereco" class="inp" placeholder="Endereço completo"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Dia da Semana</label><input [(ngModel)]="time.dia" class="inp" placeholder="Ex: Segunda-feira"></div>
+                <div class="field"><label>Horário</label><input [(ngModel)]="time.horario" class="inp" placeholder="Ex: 18:00"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Duração</label><input [(ngModel)]="time.duracao" class="inp" placeholder="Ex: 2 horas"></div>
+                <div class="field"><label>Quantos de linha?</label><input [(ngModel)]="time.formato" class="inp" placeholder="Ex: Campo de 11"></div>
+            </div>
+        </div>
+
+        <!-- AVISO: escrito aqui pelo admin, aparece no Dashboard de todo mundo -->
+        <div class="card">
+            <h3 class="sec-title">Aviso do Baba</h3>
+            <div class="field">
+                <label>Mensagem (aparece no Dashboard de todos os associados)</label>
+                <textarea [(ngModel)]="time.aviso" class="inp" rows="3"
+                    placeholder="Ex: Baba de sábado adiado pra domingo por causa da chuva"></textarea>
+            </div>
+            <label style="display:flex; align-items:center; gap:8px; margin-top:6px; cursor:pointer;">
+                <input type="checkbox" [(ngModel)]="time.avisoAtivo"> Exibir esse aviso agora
+            </label>
+            <button class="btn-green" style="margin-top:14px" (click)="salvar()" [disabled]="salvando">
+                {{ salvando ? 'Salvando...' : 'Salvar Alterações' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Coluna da direita com informações adicionais do time, como logo, cores e resumo -->
+    <div class="right-col">
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Logo do Time</h3>
+            <div class="logo-upload">
+                <div class="logo-preview" *ngIf="!logoUrl"><i class="bi bi-shield-arrow"></i></div>
+                <img *ngIf="logoUrl" [src]="logoUrl" alt="Logo do baba"
+                    style="width:64px;height:64px;object-fit:cover;border-radius:12px;margin-bottom:8px;">
+                <label class="logo-text" style="cursor:pointer;">
+                    {{ enviandoLogo ? 'Enviando...' : 'Enviar logo do time' }}
+                    <input type="file" accept=".jpg,.jpeg,.png,.webp,.svg" style="display:none"
+                        (change)="onLogoSelecionado($event)" [disabled]="enviandoLogo">
+                </label>
+                <div class="logo-sub">PNG, JPG, WEBP ou SVG até 3MB</div>
+            </div>
+        </div>
+
+        <!-- Componente de cores do time -->
+        <div class="card" style="margin-bottom:16px">
+            <h3 class="sec-title">Cores do Baba</h3>
+            <div class="cor-item">
+                <label class="cor-circle" [style.background]="time.corPrimaria" style="cursor:pointer; display:block;">
+                    <input type="color" [(ngModel)]="time.corPrimaria" style="opacity:0; width:100%; height:100%; cursor:pointer;">
+                </label>
+                <div>
+                    <div class="cor-label">Cor primária</div>
+                    <div class="cor-hex">{{ time.corPrimaria }}</div>
+                </div>
+                <span class="edit-icon"><i class="bi bi-pencil-square"></i></span>
+            </div>
+
+            <div class="cor-item">
+                <label class="cor-circle" [style.background]="time.corSecundaria" style="cursor:pointer; display:block;">
+                    <input type="color" [(ngModel)]="time.corSecundaria" style="opacity:0; width:100%; height:100%; cursor:pointer;">
+                </label>
+                <div>
+                    <div class="cor-label">Cor secundária</div>
+                    <div class="cor-hex">{{ time.corSecundaria }}</div>
+                </div>
+                <span class="edit-icon"><i class="bi bi-pencil-square"></i></span>
+            </div>
+            <p style="font-size:12px;color:#888;margin-top:8px;">
+                As cores só salvam junto com o botão "Salvar Alterações" à esquerda.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Mensagem de sucesso ao salvar alterações -->
+@if (saved) {
+<div class="saved-msg">✅ Alterações salvas</div>
+}

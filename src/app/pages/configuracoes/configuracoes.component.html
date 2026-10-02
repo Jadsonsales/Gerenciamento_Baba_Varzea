@@ -1,0 +1,54 @@
+
+    <h1 class="page-title">Configurações</h1>
+    <p class="page-subtitle">Conta, preferências e configurações do sistema</p>
+    <div class="cfg-layout">
+      <div class="left-col">
+        <div class="card" style="margin-bottom:16px">
+          <h3 class="sec-title">Conta do Administrador</h3>
+          <div class="field"><label>Nome Completo</label><input [(ngModel)]="conta.nome" placeholder="Nome completo" class="inp"></div>
+          <div class="field"><label>E-mail</label><input [ngModel]="conta.email" placeholder="E-mail" class="inp" type="email" disabled title="O e-mail não pode ser alterado"></div>
+          <div class="field"><label>Telefone</label><input [(ngModel)]="conta.tel" placeholder="Telefone" class="inp"></div>
+
+          <h3 class="sec-title" style="margin-top:18px">Notificações Automáticas</h3>
+          <div class="toggle-item" *ngFor="let t of toggles">
+            <div><div class="tname">{{t.nome}}</div><div class="tsub">{{t.sub}}</div></div>
+            <div class="toggle" [class.on]="t.ativo" (click)="t.ativo=!t.ativo"><div class="thumb"></div></div>
+          </div>
+
+          <button class="btn-green" style="margin-top:14px" (click)="salvarConta()" [disabled]="salvandoConta">
+            {{ salvandoConta ? 'Salvando...' : 'Salvar Alterações' }}
+          </button>
+          <div class="saved-msg" *ngIf="saved">✅ Salvo!</div>
+        </div>
+
+        <div class="card" *ngIf="authService.isAdmin()">
+          <h3 class="sec-title">Configurações do Baba</h3>
+          <div class="field"><label>Valor da Mensalidade (R$)</label><input [(ngModel)]="baba.valorMensalidade" placeholder="Valor da mensalidade" class="inp" type="number"></div>
+          <div class="field"><label>Dia de Vencimento</label><input [(ngModel)]="baba.diaVencimento" placeholder="Dia de vencimento" class="inp" type="number" min="1" max="31"></div>
+          <div class="field"><label>Dias de Tolerância</label><input [(ngModel)]="baba.diasTolerancia" placeholder="Dias de tolerância" class="inp" type="number" min="0"></div>
+          <button class="btn-green" (click)="salvarBaba()" [disabled]="salvandoBaba">
+            {{ salvandoBaba ? 'Salvando...' : 'Salvar Configurações do Baba' }}
+          </button>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="card plan-card" style="margin-bottom:16px">
+          <div class="plan-label">PLANO PRO</div>
+          <div class="plan-price">R$ 29,90<span>/mês</span></div>
+          <div class="plan-renov">exemplo — cobrança ainda não implementada</div>
+          <div class="plan-features">
+            <div *ngFor="let f of features"><span class="check-green">✓</span> {{f}}</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <h3 class="sec-title">Segurança</h3>
+          <button class="sec-btn" disabled title="Ainda não implementado">Alterar senha</button>
+          <button class="sec-btn" disabled title="Ainda não implementado">Autenticação em dois fatores</button>
+        </div>
+        <div class="card danger-card">
+          <div class="danger-title">⚠ Cuidado</div>
+          <div class="danger-sub">Ações irreversíveis que afetam todos os dados.</div>
+          <button class="danger-btn" disabled title="Ainda não implementado">Excluir conta permanentemente</button>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,82 @@
+<div class="login-page" [class.light-theme]="themeService.isLightMode()">
+  <div class="login-left">
+    <svg class="pitch-lines" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <line x1="250" y1="0" x2="250" y2="500" stroke="#ffffff" stroke-opacity="0.06" stroke-width="2" />
+      <circle cx="250" cy="250" r="95" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2" />
+      <circle cx="250" cy="250" r="3" fill="#ffffff" fill-opacity="0.15" />
+      <circle cx="80" cy="90" r="130" fill="none" stroke="#14C158" stroke-opacity="0.15" stroke-width="1.5"
+        stroke-dasharray="4 6" />
+    </svg>
+
+    <div class="brand">
+      <div class="logo-icon"><i class="bi bi-trophy-fill"></i></div>
+      <span>BABA DE VÁRZEA</span>
+    </div>
+
+    <div class="slider-container">
+      <div class="hero-text" *ngFor="let slide of slides; let i = index" [class.active]="i === slideAtivo">
+        <h1>{{ slide.titulo }}</h1>
+        <h1 class="yellow">{{ slide.destaque }}</h1>
+        <p class="desc">{{ slide.desc }}</p>
+      </div>
+      <div class="slider-dots">
+        <span *ngFor="let slide of slides; let i = index" [class.dot-active]="i === slideAtivo" (click)="mudarSlide(i)">
+        </span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><span class="stat-num">500+</span><span class="stat-label">Babas cadastrados</span></div>
+      <div><span class="stat-num">8.000+</span><span class="stat-label">Cansados ativos</span></div>
+      <div><span class="stat-num">12k+</span><span class="stat-label">Babas sorteados</span></div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="form-card">
+      <div class="theme-toggle-container">
+        <button type="button" class="btn-theme-toggle" (click)="toggleTema()" [title]="themeService.isLightMode() ? 'Mudar para Tema Escuro' : 'Mudar para Tema Claro'">
+          <i class="bi" [class.bi-sun-fill]="!themeService.isLightMode()" [class.bi-moon-stars-fill]="themeService.isLightMode()"></i>
+        </button>
+      </div>
+
+      <h2>Bem-vindo de volta</h2>
+      <p>Acesse sua conta para continuar</p>
+
+      <div class="field">
+        <label for="loginEmail">E-mail</label>
+        <input id="loginEmail" type="email" [(ngModel)]="email" placeholder="admin@babamanager.com">
+      </div>
+
+      <div class="field">
+        <label for="loginSenha">Senha</label>
+        <div class="password-wrapper">
+          <input id="loginSenha" [type]="mostrarSenha ? 'text' : 'password'" [(ngModel)]="senha" placeholder="••••••••">
+          <button type="button" class="btn-toggle-password" (click)="toggleMostrarSenha()" tabindex="-1">
+            <i class="bi" [class.bi-eye-fill]="!mostrarSenha" [class.bi-eye-slash-fill]="mostrarSenha"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row-opts">
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="checkbox" [(ngModel)]="lembrarMim"> Lembrar de mim
+        </label>
+        <a routerLink="/login" class="forgot">Esqueci a senha</a>
+      </div>
+
+      <p *ngIf="erro" style="color: #e53935; font-size: 14px; margin: 4px 0;">{{ erro }}</p>
+
+      <button class="btn-enter" (click)="logar()" [disabled]="!email || !senha || carregando">
+        {{ carregando ? 'Entrando...' : 'Entrar' }}
+      </button>
+      <p class="signup">Não tem conta? <a routerLink="/cadastro">Solicitar acesso</a></p>
+
+      <div class="copyright">
+        &copy; {{ anoAtual }} Baba de Várzea. Todos os direitos reservados. <br> Desenvolvido por <a class="contato"
+          href="https://www.linkedin.com/in/jadson-sales-da-cruz-b73922186"
+          target="_blank" rel="noopener">Jadson Sales</a>
+      </div>
+    </div>
+  </div>
+</div>

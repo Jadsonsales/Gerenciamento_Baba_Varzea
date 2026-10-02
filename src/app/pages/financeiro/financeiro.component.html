@@ -1,0 +1,124 @@
+<!--Controle Financeiro-->
+<h1 class="page-title">Controle Financeiro</h1>
+<p class="page-subtitle">Mensalidades e pagamentos dos cansados</p>
+<div class="fin-stats">
+    <div class="fin-card">
+        <div class="fc-label">Mensalidade</div>
+        <div class="fc-val">R$ {{ valorMensalidade() }}</div>
+        <div class="fc-sub">por associado</div>
+    </div>
+    <div class="fin-card green">
+        <div class="fc-label">Caixa</div>
+        <div class="fc-val">R$ {{ caixaMesAtual() }}</div>
+        <div class="fc-sub">mês atual</div>
+    </div>
+    <div class="fin-card">
+        <div class="fc-label">A espera de um milagre</div>
+        <div class="fc-val">R$ {{ aReceber() }}</div>
+        <div class="fc-sub">só observando</div>
+    </div>
+    <div class="fin-card">
+        <div class="fc-label">Em dia</div>
+        <div class="fc-val">{{ percentualEmDia() }}%</div>
+        <div class="fc-sub">dos associados</div>
+    </div>
+</div>
+
+<!--Distribuição Financeira-->
+<div class="fin-mid">
+    <div class="card dist-card">
+        <div class="card-header"><span>Arrecadação</span></div>
+        <div class="donut-wrap">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#333" stroke-width="18" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#0B8F3A" stroke-width="18"
+                    [attr.stroke-dasharray]="donut().verde.dash"
+                    [attr.stroke-dashoffset]="donut().verde.offset" transform="rotate(-90 60 60)" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#F4B400" stroke-width="18"
+                    [attr.stroke-dasharray]="donut().amarelo.dash"
+                    [attr.stroke-dashoffset]="donut().amarelo.offset" transform="rotate(-90 60 60)" />
+                <circle cx="60" cy="60" r="48" fill="none" stroke="#e53935" stroke-width="18"
+                    [attr.stroke-dasharray]="donut().vermelho.dash"
+                    [attr.stroke-dashoffset]="donut().vermelho.offset" transform="rotate(-90 60 60)" />
+            </svg>
+        </div>
+        <div class="legend-list">
+            <div><span class="ldot green"></span> Com moral <strong>{{ totalPago() }}</strong></div>
+            <div><span class="ldot yellow"></span> Sem moral <strong>{{ totalPendente() }}</strong></div>
+            <div><span class="ldot red"></span> Fax o Pix, CBF <strong>{{ totalAtrasado() }}</strong></div>
+        </div>
+        <!--Historico financeiro-->
+    </div>
+    <div class="card hist-card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>📈 Histórico de Arrecadação</span>
+            <button *ngIf="authService.isAdmin()" class="sec-btn" (click)="gerarSnapshot()" [disabled]="gerandoSnapshot"
+                title="Gera/atualiza o snapshot do mês atual sem esperar o dia 1">
+                {{ gerandoSnapshot ? 'Gerando...' : '📸 Gerar snapshot deste mês' }}
+            </button>
+        </div>
+        <div class="hist-chart">
+            <div class="hist-bars" *ngIf="historico().length > 0">
+                <div class="hb-group" *ngFor="let m of historico()">
+                    <div class="hb" [style.height]="m.v*9+'px'"></div>
+                    <span class="hb-label">{{m.l}}</span>
+                </div>
+            </div>
+            <p *ngIf="historico().length === 0" style="text-align:center; color:#888; padding: 24px 0;">
+                Ainda não há snapshot salvo. {{ authService.isAdmin() ? 'Clique em "Gerar snapshot deste mês".' : '' }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top:20px">
+    <div class="card-header"><span>Lista de Associados</span></div>
+    <div class="table-scroll">
+        <table class="fin-table">
+            <thead>
+                <tr>
+                    <th>Jogador</th>
+                    <th>Posição</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of linhas()">
+                    <td>
+                        <div class="jog-cell">
+                            <div class="jav" [style.background]="p.cor">{{p.init}}</div>
+                            <div>
+                                <div class="jname">{{p.apelido}}</div>
+                                <div class="jfull">{{p.nome}}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="pos-tag">{{p.posicao}}</span></td>
+                    <td>R$ {{ p.valorPago }},00</td>
+                    <td>Todo dia {{ configuracaoService.configuracao()?.diaVencimento ?? 10 }}</td>
+                    <td><span class="badge" [class.badge-green]="p.pagamento==='Pago'"
+                            [class.badge-yellow]="p.pagamento==='Pendente'"
+                            [class.badge-red]="p.pagamento==='Atrasado'">{{p.pagamento}}</span></td>
+                    <td class="acoes-cell">
+                        <button type="button" 
+                            class="btn-toggle-pago"
+                            [class.pago]="p.pagamento === 'Pago'"
+                            (click)="alternarStatusPagamento(p)"
+                            [title]="p.pagamento === 'Pago' ? 'Clique para desmarcar pago' : 'Clique para marcar como pago'">
+                            <i class="bi" [class.bi-check-circle-fill]="p.pagamento === 'Pago'" [class.bi-check2-circle]="p.pagamento !== 'Pago'"></i>
+                            {{ p.pagamento === 'Pago' ? 'Pago (Desmarcar)' : 'Marcar pago' }}
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="linhas().length === 0">
+                    <td colspan="6" style="text-align:center; padding: 24px; color:#888;">
+                        Nenhum jogador cadastrado ainda.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
